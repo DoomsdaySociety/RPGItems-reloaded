@@ -38,7 +38,7 @@ public abstract class LanguageRepository implements ILocalizer {
     /**
      * Use English as fallback language
      */
-    public static final String DEFAULT_LANGUAGE = "en_US";
+    public static final String DEFAULT_LANGUAGE = "zh_CN";
     /**
      * Per-plugin language map used by {@link LanguageRepository}
      * So it's possible to overwrite some internal language keys here.
@@ -151,7 +151,9 @@ public abstract class LanguageRepository implements ILocalizer {
     public String getFormatted(String key, Object... para) {
         String val = getRaw(key);
         if (val == null) {
-            getPlugin().getLogger().warning("Missing language key: " + key);
+            if (getPlugin() != null) {
+                getPlugin().getLogger().warning("Missing language key: " + key);
+            }
             StringBuilder keyBuilder = new StringBuilder("MISSING_LANG<" + key + ">");
             for (Object obj : para) {
                 keyBuilder.append("#<").append(obj).append(">");
@@ -162,14 +164,18 @@ public abstract class LanguageRepository implements ILocalizer {
                 return String.format(val, para);
             } catch (IllegalFormatConversionException e) {
                 e.printStackTrace();
-                getPlugin().getLogger().warning("Corrupted language key: " + key);
-                getPlugin().getLogger().warning("val: " + val);
+                if (getPlugin() != null) {
+                    getPlugin().getLogger().warning("Corrupted language key: " + key);
+                    getPlugin().getLogger().warning("val: " + val);
+                }
                 StringBuilder keyBuilder = new StringBuilder();
                 for (Object obj : para) {
                     keyBuilder.append("#<").append(obj.toString()).append(">");
                 }
                 String params = keyBuilder.toString();
-                getPlugin().getLogger().warning("params: " + params);
+                if (getPlugin() != null) {
+                    getPlugin().getLogger().warning("params: " + params);
+                }
                 return "CORRUPTED_LANG<" + key + ">" + params;
             }
         }
@@ -203,7 +209,9 @@ public abstract class LanguageRepository implements ILocalizer {
     public String getSubstituted(String key, Map<?, ?> paraMap) {
         String val = getRaw(key);
         if (val == null) {
-            getPlugin().getLogger().warning("Missing language key: " + key);
+            if (getPlugin() != null) {
+                getPlugin().getLogger().warning("Missing language key: " + key);
+            }
             StringBuilder keyBuilder = new StringBuilder("MISSING_LANG<" + key + ">");
             for (Map.Entry<?, ?> e : paraMap.entrySet()) {
                 keyBuilder.append("#<").append(e.getKey().toString()).append(":").append(e.getValue().toString()).append(">");

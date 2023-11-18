@@ -2,12 +2,11 @@ name: RPGItems
 main: think.rpgitems.RPGItems
 description: "RPGItems"
 version: ${version}
-depend: [LangUtils]
 softdepend: [WorldGuard,NyaaUtils,Vault]
 authors: [Taiterio,cyilin,RecursiveG,Librazy]
 website: "https://github.com/MrXiaoM/RPGItems-reloaded"
 database: false
-api-version: 1.19
+api-version: 1.20
 libraries:
   - 'com.udojava:EvalEx:2.7'
   - 'commons-lang:commons-lang:2.6'

@@ -27,8 +27,8 @@ public class I18n extends LanguageRepository {
     protected Map<String, String> map = new HashMap<>();
 
     public I18n(RPGItems plugin, String lang) {
-        instances.put(lang.toLowerCase(), this);
         this.plugin = plugin;
+        instances.put(lang.toLowerCase(), this);
         this.lang = lang;
         loadResourceLanguage(lang);
         save(lang + ".template");
